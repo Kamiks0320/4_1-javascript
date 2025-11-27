@@ -43,7 +43,25 @@ app.get("/math/rectangle/:width/:height", (req, res) =>
 })
 
 //TODO3
+app.get("/math/power/:base/:ex/", (req, res) =>
+{
+  const {base, ex} = req.params;
+  const {root} = req.query;
 
+  if(!base || !ex)
+  {
+    const missingpara = [];
+    if(!width) missingpara.push("base");
+    if(!height) missingpara.push("ex");
+
+    const error = `Brakuje potrzebnych parametrów get: ${missingpara.join(", ")}`;
+    return res.status(400).send(error);
+  }
+
+  const message = `Potęga: ${Math.pow(base, ex)}, pierwiastek: ${root == "true" ? "root: " + Math.sqrt(base) : ""}`;
+  res.type("text").send(message);
+  res.json(result);
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
