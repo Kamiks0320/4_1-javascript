@@ -23,7 +23,24 @@ app.get('/math/circle/:r', (req, res) => {
 });
 
 //TODO2
+app.get("/math/rectangle/:width/:height", (req, res) =>
+{
+  const {width, height} = req.params;
 
+  if(!width || !height)
+  {
+    const missingpara = [];
+    if(!width) missingpara.push("w");
+    if(!height) missingpara.push("h");
+
+    const error = `Brakuje potrzebnych parametrów get: ${missingpara.join(", ")}`;
+    return res.status(400).send(error);
+  }
+
+  const message = `Pole: ${width * height}, obwód: ${2 * width + 2 * height}`;
+  res.type("text").send(message);
+  res.json(result);
+})
 
 //TODO3
 
